@@ -1,0 +1,396 @@
+﻿<Window x:Class="Calculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Calculator"
+        mc:Ignorable="d"
+        Title="MainWindow" 
+        Height="450"
+        Width="220"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        WindowStyle="None">
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" SnapsToDevicePixels="true" StrokeThickness="1" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Border x:Name="border" Background="#FF222325" Width="{TemplateBinding Property=Width}" Height="{TemplateBinding Property=Height}" CornerRadius="20" Margin="5"  >
+                                <ContentPresenter VerticalAlignment="Center" Content="{TemplateBinding Property=Content}" HorizontalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true"/>
+                            <Trigger Property="IsMouseOver" Value="true"/>
+                            <Trigger Property="IsPressed" Value="true"/>
+                            <Trigger Property="IsEnabled" Value="false"/>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonStyleRed" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Border x:Name="border" Background="#FF40292F" Width="{TemplateBinding Property=Width}" Height="{TemplateBinding Property=Height}" CornerRadius="20" Margin="5"  >
+                                <ContentPresenter VerticalAlignment="Center" Content="{TemplateBinding Property=Content}" HorizontalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true"/>
+                            <Trigger Property="IsMouseOver" Value="true"/>
+                            <Trigger Property="IsPressed" Value="true"/>
+                            <Trigger Property="IsEnabled" Value="false"/>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonStyleOrange" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates"/>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="border" Background="#FFFA940B" Width="{TemplateBinding Property=Width}" Height="{TemplateBinding Property=Height}" CornerRadius="20" Margin="5"  >
+                                <ContentPresenter VerticalAlignment="Center" Content="{TemplateBinding Property=Content}" HorizontalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true"/>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Border.Background" Value="AliceBlue"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true"/>
+                            <Trigger Property="IsEnabled" Value="false"/>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonStyleGreen" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Border x:Name="border" Background="#FF2DCA75" Width="{TemplateBinding Property=Width}" Height="{TemplateBinding Property=Height}" CornerRadius="20" Margin="5"  >
+                                <ContentPresenter VerticalAlignment="Center" Content="{TemplateBinding Property=Content}" HorizontalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true"/>
+                            <Trigger Property="IsMouseOver" Value="true"/>
+                            <Trigger Property="IsPressed" Value="true"/>
+                            <Trigger Property="IsEnabled" Value="false"/>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonStyle2" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Border x:Name="border" Background="#FF222325" Width="{TemplateBinding Property=Width}" Height="{TemplateBinding Property=Height}" CornerRadius="20" >
+                                <ContentPresenter VerticalAlignment="Center" Content="{TemplateBinding Property=Content}" HorizontalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true"/>
+                            <Trigger Property="IsMouseOver" Value="true"/>
+                            <Trigger Property="IsPressed" Value="true"/>
+                            <Trigger Property="IsEnabled" Value="false"/>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+    </Window.Resources>
+
+    <Grid Background="#FF17181A">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Grid.ColumnSpan="4"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Right"
+                   FontSize="15"
+                   x:Name="lblNumber"
+                   Foreground="White"
+                   Margin="5"/>
+
+        <Button Style="{DynamicResource ButtonStyle2}" 
+                Foreground="White"
+                Content="deg" 
+                Grid.Row="1" 
+                Grid.Column="3"
+                x:Name="btnDeg"
+                Click="btnDeg_Click"
+                Height="25"
+                Width="40"
+                FontSize="10"/>
+
+        <Button Style="{DynamicResource ButtonStyle2}" 
+                Foreground="White"
+                Content="sin" 
+                Grid.Row="1" 
+                Grid.Column="2"
+                x:Name="btnSin"
+                Click="btnSin_Click"
+                Height="25"
+                Width="40"
+                FontSize="10"/>
+
+        <Button Style="{DynamicResource ButtonStyle2}" 
+                Foreground="White"
+                Content="e" 
+                Grid.Row="1" 
+                Grid.Column="0"
+                x:Name="btnE"
+                Click="btnE_Click"
+                Height="25"
+                Width="40"
+                FontSize="10"/>
+
+        <Button Style="{DynamicResource ButtonStyle2}" 
+                Foreground="White"
+                Content="π" 
+                Grid.Row="1" 
+                Grid.Column="1"
+                x:Name="btnPI"
+                Click="btnPI_Click"
+                Height="25"
+                Width="40"
+                FontSize="10"/>
+
+        <Button Style="{DynamicResource ButtonStyleRed}" 
+                Foreground="#FFAE555E" 
+                Content="C" 
+                Grid.Row="2"
+                x:Name="btnClear"
+                Click="btnClear_Click"/>
+        
+        <Button Style="{DynamicResource ButtonStyle1}"
+                Foreground="White" 
+                Content="(" 
+                Grid.Row="2" 
+                Grid.Column="1"
+                x:Name="btnBracketLeft"
+                Click="btnBracketLeft_Click"/>
+        
+        <Button Style="{DynamicResource ButtonStyle1}" 
+                Foreground="White"
+                Content=")" 
+                Grid.Row="2" 
+                Grid.Column="2"
+                x:Name="btnBracketRight"
+                Click="btnBracketRight_Click"/>
+        
+        <Button Style="{DynamicResource ButtonStyleOrange}" 
+                Foreground="White" 
+                Content="/"
+                Grid.Row="2" 
+                Grid.Column="3"
+                x:Name="btnDivide"
+                Click="btnDivide_Click"/>
+        
+        <Button Style="{DynamicResource ButtonStyle1}"
+                Foreground="White" 
+                Content="7"
+                Grid.Row="3"
+                x:Name="btnSeven"
+                Click="btnSeven_Click"/>
+        
+        <Button Style="{DynamicResource ButtonStyle1}" 
+                Foreground="White" 
+                Content="8" 
+                Grid.Row="3" 
+                Grid.Column="1"
+                x:Name="btnEight"
+                Click="btnEight_Click"/>
+        
+        <Button Style="{DynamicResource ButtonStyle1}" 
+                Foreground="White" 
+                Content="9"
+                Grid.Row="3"
+                Grid.Column="2"
+                x:Name="btnNine"
+                Click="btnNine_Click"/>
+        
+        <Button Style="{DynamicResource ButtonStyleOrange}" 
+                Foreground="White" 
+                Content="X" 
+                Grid.Row="3" 
+                Grid.Column="3"
+                x:Name="btnMultiply"
+                Click="btnMultiply_Click"/>
+        
+        <Button Style="{DynamicResource ButtonStyle1}" 
+                Foreground="White" 
+                Content="4"
+                Grid.Row="4"
+                x:Name="btnFour"
+                Click="btnFour_Click"/>
+        
+        <Button Style="{DynamicResource ButtonStyle1}"
+                Foreground="White" 
+                Content="5" 
+                Grid.Row="4" 
+                Grid.Column="1"
+                x:Name="btnFive"
+                Click="btnFive_Click"/>
+        
+        <Button Style="{DynamicResource ButtonStyle1}" 
+                Foreground="White" 
+                Content="6"
+                Grid.Row="4" 
+                Grid.Column="2"
+                x:Name="btnSix"
+                Click="btnSix_Click"/>
+        
+        <Button Style="{DynamicResource ButtonStyleOrange}" 
+                Foreground="White"
+                Content="-" 
+                Grid.Row="4"
+                Grid.Column="3"
+                x:Name="btnMinus"
+                Click="btnMinus_Click"/>
+        
+        <Button Style="{DynamicResource ButtonStyle1}" 
+                Foreground="White" 
+                Content="1" 
+                Grid.Row="5" 
+                x:Name="btnOne"
+                Click="btnOne_Click"/>
+        
+        <Button Style="{DynamicResource ButtonStyle1}" 
+                Foreground="White" 
+                Content="2"
+                Grid.Row="5"
+                Grid.Column="1"
+                x:Name="btnTwo"
+                Click="btnTwo_Click"/>
+        
+        <Button Style="{DynamicResource ButtonStyle1}" 
+                Foreground="White" 
+                Content="3" 
+                Grid.Row="5" 
+                Grid.Column="2"
+                x:Name="btnThree"
+                Click="btnThree_Click"/>
+        
+        <Button Style="{DynamicResource ButtonStyleOrange}" 
+                Foreground="White" 
+                Content="+"
+                Grid.Row="5" 
+                Grid.Column="3"
+                x:Name="btnPlus"
+                Click="btnPlus_Click"/>
+        
+        <Button Style="{DynamicResource ButtonStyle1}" 
+                Foreground="White" 
+                Content="0" 
+                Grid.Row="6" 
+                Grid.ColumnSpan="2"
+                x:Name="btnZero"
+                Click="btnZero_Click"/>
+        
+        <Button Style="{DynamicResource ButtonStyle1}" 
+                Foreground="White"
+                Content="." 
+                Grid.Row="6" 
+                Grid.Column="2"
+                x:Name="btnPoint"
+                Click="btnPoint_Click"/>
+        
+        <Button Style="{DynamicResource ButtonStyleGreen}" 
+                Foreground="White" 
+                Content="=" 
+                Grid.Row="6" 
+                Grid.Column="3"
+                x:Name="btnEqually"
+                Click="btnEqually_Click"/>
+
+
+    </Grid>
+</Window>
